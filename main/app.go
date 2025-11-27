@@ -11,6 +11,8 @@ import (
 	"go.mau.fi/whatsmeow/store/sqlstore"
 	"go.mau.fi/whatsmeow/types/events"
 	waLog "go.mau.fi/whatsmeow/util/log"
+
+ "github.com/mdp/qrterminal/v3"
 )
 
 func eventHandler(evt interface{}) {
@@ -49,6 +51,10 @@ func main() {
 		}
 		for evt := range qrChan {
 			if evt.Event == "code" {
+
+   // Gera o QR no terminal usando blocos “half”
+    qrterminal.GenerateHalfBlock(evt.Code, qrterminal.L, os.Stdout)
+
 				// Render the QR code here
 				// e.g. qrterminal.GenerateHalfBlock(evt.Code, qrterminal.L, os.Stdout)
 				// or just manually `echo 2@... | qrencode -t ansiutf8` in a terminal
