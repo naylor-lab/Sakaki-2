@@ -197,7 +197,8 @@ const App = async () => {
           if (cmd) {
             // Só aceita abrir/fechar em grupos onde o bot for admin
             if (isGroup) {
-              const admin = try {
+              const admin = (function() { 
+    try {
     const meta = await sock.groupMetadata(groupJid);
     const myJid = sock.user?.id ?? '';
     // Se o bot for dono do grupo
@@ -208,7 +209,7 @@ const App = async () => {
   } catch (e) {
     console.error('Erro ao checar admin do grupo', groupJid, e);
     return false;
-  }
+  } })();
               if (!admin) {
                 await sock.sendMessage(remoteJid, {
                   text: '⚠️ Preciso ser administrador para abrir/fechar o grupo.',
