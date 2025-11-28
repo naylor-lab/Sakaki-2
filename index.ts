@@ -111,7 +111,7 @@ const App = async () => {
   /* -------------------------------------------------
      FUNÇÃO DE ENVIO COM TIPING (mostra "digitando")
   ------------------------------------------------- */
-  const sendMessageWTyping = async (msg: AnyMessageContent, jid: string) => {
+  const sendMessageWTyping = async (jid: string, msg: AnyMessageContent) => {
     await sock.presenceSubscribe(jid);
     await delay(500);
     await sock.sendPresenceUpdate('composing', jid);
@@ -148,6 +148,7 @@ async function openGroup(jid: string) {
 async function closeGroup(jid: string) {
   // true → modo anúncio (só admins podem enviar)
   await sock.groupSettingUpdate(jid, 'announcement')
+
   await sock.sendMessage(jid, {
     text: '🔒 Grupo fechado! Apenas administradores podem enviar mensagens.',
   });
