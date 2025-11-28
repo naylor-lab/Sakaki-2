@@ -75,37 +75,6 @@ const question = (text: string) =>
  ********************************************************************/
 const COMMAND_PREFIX = '/'; // altere para '/' ou outro caractere se desejar
 
-/********************************************************************
- *  FUNÇÃO AUXILIAR: extrai comando após o prefixo
- ********************************************************************/
-function parseCommand(text: string): string | null {
-  const trimmed = text.trim();
-  if (!trimmed.startsWith(COMMAND_PREFIX)) return null;
-  return trimmed.slice(COMMAND_PREFIX.length).toLowerCase(); // ex.: "open_group"
-}
-
-
-
-/********************************************************************
- *  FUNÇÕES DE CONTROLE DO GRUPO (abre/fecha)
- ********************************************************************/
-async function openGroup(jid: string) {
-  // false → modo livre (todos podem enviar)
-  await sock.groupUpdateRestrict(jid, false);
-  await sock.sendMessage(jid, {
-    text: '🔓 Grupo aberto! Todos podem conversar novamente.',
-  });
-  console.log(`✅ Grupo ${jid} aberto`);
-}
-
-async function closeGroup(jid: string) {
-  // true → modo anúncio (só admins podem enviar)
-  await sock.groupUpdateRestrict(jid, true);
-  await sock.sendMessage(jid, {
-    text: '🔒 Grupo fechado! Apenas administradores podem enviar mensagens.',
-  });
-  console.log(`✅ Grupo ${jid} fechado`);
-}
 
 /********************************************************************
  *  INICIALIZAÇÃO DA CONEXÃO
@@ -150,6 +119,41 @@ const App = async () => {
     await sock.sendPresenceUpdate('paused', jid);
     await sock.sendMessage(jid, msg);
   };
+
+
+
+/********************************************************************
+ *  FUNÇÃO AUXILIAR: extrai comando após o prefixo
+ ********************************************************************/
+function parseCommand(text: string): string | null {
+  const trimmed = text.trim();
+  if (!trimmed.startsWith(COMMAND_PREFIX)) return null;
+  return trimmed.slice(COMMAND_PREFIX.length).toLowerCase(); // ex.: "open_group"
+}
+
+
+
+/********************************************************************
+ *  FUNÇÕES DE CONTROLE DO GRUPO (abre/fecha)
+ ********************************************************************/
+async function openGroup(jid: string) {
+  // false → modo livre (todos podem enviar)
+  await sock.groupUpdateRestrict(jid, false);
+  await sock.sendMessage(jid, {
+    text: '🔓 Grupo aberto! Todos podem conversar novamente.',
+  });
+  console.log(`✅ Grupo ${jid} aberto`);
+}
+
+async function closeGroup(jid: string) {
+  // true → modo anúncio (só admins podem enviar)
+  await sock.groupUpdateRestrict(jid, true);
+  await sock.sendMessage(jid, {
+    text: '🔒 Grupo fechado! Apenas administradores podem enviar mensagens.',
+  });
+  console.log(`✅ Grupo ${jid} fechado`);
+}
+
 
   /* -------------------------------------------------
      EVENT HANDLER (processa todos os eventos)
