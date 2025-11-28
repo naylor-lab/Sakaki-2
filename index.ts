@@ -193,7 +193,6 @@ const App = async () => {
           /* ----- COMANDOS COM PREFIXO ----- */
           const cmd = parseCommand(text);
           if (cmd) {
-            // Só aceita abrir/fechar em grupos onde o bot for admin
             
               if (cmd === 'open_group') await openGroup(remoteJid);
               else if (cmd === 'close_group') await closeGroup(remoteJid);
