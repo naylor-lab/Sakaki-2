@@ -138,7 +138,7 @@ function parseCommand(text: string): string | null {
  ********************************************************************/
 async function openGroup(jid: string) {
   // false → modo livre (todos podem enviar)
-  await sock.groupUpdateRestrict(jid, false);
+  await sock.groupSettingUpdate(jid, 'not_announcement')
   await sock.sendMessage(jid, {
     text: '🔓 Grupo aberto! Todos podem conversar novamente.',
   });
@@ -147,7 +147,7 @@ async function openGroup(jid: string) {
 
 async function closeGroup(jid: string) {
   // true → modo anúncio (só admins podem enviar)
-  await sock.groupUpdateRestrict(jid, true);
+  await sock.groupSettingUpdate(jid, 'announcement')
   await sock.sendMessage(jid, {
     text: '🔒 Grupo fechado! Apenas administradores podem enviar mensagens.',
   });
