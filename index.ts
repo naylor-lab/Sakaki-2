@@ -199,7 +199,7 @@ const App = async () => {
             if (isGroup) {
               const admin = (function() { 
     try {
-    const meta = await sock.groupMetadata(groupJid);
+    const meta = await sock.groupMetadata(remoteJid);
     const myJid = sock.user?.id ?? '';
     // Se o bot for dono do grupo
     if (meta.owner === myJid) return true;
