@@ -147,6 +147,9 @@ const App = async () => {
    break;
 
     case "block_modify_group":
+// only allow admins to modify the group's settings
+await sock.groupSettingUpdate(jid, 'locked');
+break;
      }
 
       }
