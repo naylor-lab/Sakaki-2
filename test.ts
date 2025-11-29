@@ -142,27 +142,26 @@ const App = async () => {
      switch (cmd) {
 
      case "menu":
-    const img = await axios.get('https://api.waifu.pics/sfw/neko')
-  .then(function (r) {
-    // handle success
-    console.log(r);
-    return r.url;
-  })
-  .catch(function (error) {
-    // handle error
-    console.log(error);
-  });
+  try {
+    // 1️⃣ Fetch the image JSON
+    const response = await axios.get("https://api.waifu.pics/sfw/neko");
+    // 2️⃣ Extract the URL from the JSON payload
+    const imgUrl = response.data.url;   // <-- this is the direct image link
 
-
-     await sendWithTyping(sock, jid, 
-     { 
-        image: {
-            url: img
-        },
-        caption: '> Menu\n\n/Group'
-
-     });
-     break;
+    // 3️⃣ Send the image with a caption
+    await sendWithTyping(sock, jid, {
+      image: { url: imgUrl },
+      caption: "> Menu\n\n/Group"
+    });
+  } catch (err) {
+    // 4️⃣ Handle any network or API errors gracefully
+    console.error("Failed to fetch or send the neko image:", err);
+    // Optionally inform the user that something went wrong
+    await sendWithTyping(sock, jid, {
+      text: "Desculpe, não consegui carregar o menu agora. Tente novamente mais tarde."
+    });
+  }
+  break;
 
      case "allow_modify_group":
     // allow everyone to modify the group's settings
