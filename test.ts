@@ -151,8 +151,7 @@ const App = async () => {
 
     // 3️⃣ Send the image with a caption
     await sendWithTyping(sock, jid, {
-      image: { url: imgUrl },
-      caption: "> Menu\n\n/Group"
+      image: { url: imgUrl }
     });
   } catch (err) {
     // 4️⃣ Handle any network or API errors gracefully
