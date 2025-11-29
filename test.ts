@@ -141,6 +141,12 @@ const App = async () => {
 
      switch (cmd) {
 
+     case "allow_modify_group":
+    // allow everyone to modify the group's settings
+   await sock.groupSettingUpdate(jid, 'unlocked');
+   break;
+
+    case "block_modify_group":
      }
 
       }
