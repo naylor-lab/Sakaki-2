@@ -145,7 +145,7 @@ const App = async () => {
      await sendWithTyping(sock, jid, 
      { 
         image: {
-            url: 'https://api.waifu.pics/many/sfw/neko'
+            url: 'https://api.waifu.pics/sfw/neko'
         },
         caption: '> Menu\n\n/Group'
 
