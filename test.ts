@@ -141,6 +141,17 @@ const App = async () => {
 
      switch (cmd) {
 
+     case "menu":
+     await sendWithTyping(sock, jid, 
+     { 
+        image: {
+            url: './Media/ma_img.png'
+        },
+        caption: 'hello word'
+
+     });
+     break;
+
      case "allow_modify_group":
     // allow everyone to modify the group's settings
    await sock.groupSettingUpdate(jid, 'unlocked');
